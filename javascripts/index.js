@@ -1,5 +1,3 @@
-// var data = [4, 8, 15, 16, 23, 42, 12];
-
 function getCatagory (data) {
 	var counts = {'A':0,'B':0,'C':0,'D':0,'E':0,'F':0,'G':0, 'H':0,'I':0,'J':0,'K':0,'N':0,'O':0,'P':0,'R':0,
             'S':0,'T':0,'U':0,'V':0,'X':0,'Z':0};
@@ -30,9 +28,6 @@ var monthformat = d3.time.format("%Y-%m");
 var monthNameFormat = d3.time.format("%B");
 var time = timeformat.parse(book_nodes["children"][1]["borrow_date"]);
 var month = monthformat(time);
-// console.log(time);
-// console.log(month);
-// console.log(book_nodes["children"][1]["borrow_date"]);
 
 var getmonth = function  (data) {
 	var result = {};
@@ -47,55 +42,47 @@ var getmonth = function  (data) {
 			};			
 		};
 	};
+	//用于计算本月空余时间
 	var countMonth = 0;
-	// var count = 0;
 	var dataLength = data.length;
 	for(i = 0; i < dataLength; i++){
-		// console.log("hello");
+		//给每条数据定义一个衡量角度的值num = 1,
 		if(!data[i].num){
 			data[i].num = 1;
 			data[i].yearMonth = monthformat(timeformat.parse(data[i]["borrow_date"]));
 		};
+		//判断这条数据是不是刚刚添加的该月空余
 		if(data[i]["borrow_date"]){
 			var tempMonth1 = timeformat.parse(data[i]["borrow_date"]).getMonth();
+			//判断是否是最后一条数据,保证数据有效
 			if(data[parseInt(i)+1]){
-				var tempMonth2 = timeformat.parse(data[parseInt(i)+1]["borrow_date"]).getMonth();	
-				// console.log(tempMonth1 + "," + tempMonth2);		
+				var tempMonth2 = timeformat.parse(data[parseInt(i)+1]["borrow_date"]).getMonth();		
 			}
+			//最后一条数据的话就直接在后面添加该月的空余
 			else{
-				// console.log("hello world");
-				// console.log(tempMonth1 + ',' + tempMonth2);
 				data.push({"num": 20-countMonth,"catagory": "Q","name":"没借书的时间段","yearMonth": data[i].yearMonth});
-				// dataLength++;
-				// countMonth = 0;
+				//结束循环
 				break;
 			};
 		}
+		//若是空余时间就直接跳过
 		else{
-			// console.log("the rest");
-					// count++;
-		// console.log(count);
 			continue;
 		};
-		// console.log(tempMonth1 + ','+ tempMonth2);
+		//判断前后记录是不是同一个月,用来判断是否该添加本月空余
 		if(tempMonth1 == tempMonth2)
 		{
+			//用来计算最终的空余时间
 			countMonth = countMonth + 1;
-			// console.log("countMonth when equal"+countMonth);
 		}
 		else{
-
+			//添加本月空余,20是我自定义的数
 			data.splice(parseInt(i)+1, 0, {"num": 20-countMonth,"catagory": "Q","name":"没借书的时间段","yearMonth":data[i].yearMonth});
+			//数据条数增加
 			dataLength++;
-			// console.log()
+			//借阅数目归0
 			countMonth = 0;
-			// console.log
 		};
-		// console.log(tempMonth1);
-		// console.log("count: ");
-
-
-
 	};
 	return data;
 }
