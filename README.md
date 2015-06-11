@@ -1,10 +1,6 @@
-# d3 README.txt
-
-标签（空格分隔）： 未分类
-
----
 # d3-pie-demo
 a data visualization of some data from the library, using the pie layout of the d3 library including some tips of using the pie layout
+---
 
 ##Description:
 这是一个D3实线饼状图的demo,效果图如下,数据是一个人在图书馆的借书数据,内圈把所有借过的书进行童妓,表示的是不同类别的书所占比例的大小,外圈表示按时间顺序排列下来的借书记录,按月分,灰色部分表示没有借书的时间段,其他颜色表示各个类别的书
@@ -138,10 +134,10 @@ var outerRing = d3.layout.pie()
 
 ---
 
-李辉 
-helicese@gmail.com
-热爱学习的前端小兵,欢迎前来交流讨论
-2015.6.11
+- 李辉   
+- helicese@gmail.com
+- 热爱学习的前端小兵,欢迎前来交流讨论
+- 2015.6.11
 
 
 
